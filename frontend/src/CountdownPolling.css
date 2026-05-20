@@ -1,0 +1,105 @@
+/* AlertChecker.css */
+
+/* Full-screen gradient background */
+.alert-wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Floating blurred light effect */
+.blob-pink {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(255, 105, 180, 0.25);
+  border-radius: 50%;
+  filter: blur(150px);
+  animation: blob 8s ease-in-out infinite;
+  top: -150px;
+  left: -150px;
+}
+
+.blob-cyan {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background-color: rgba(0, 255, 255, 0.2);
+  border-radius: 50%;
+  filter: blur(140px);
+  animation: blob 10s ease-in-out infinite;
+  bottom: -120px;
+  right: -120px;
+}
+
+/* Alert card with glass effect */
+.alert-card {
+  z-index: 10;
+  padding: 3rem 2rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  color: white;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  animation: fadeIn 1.5s ease-out;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.alert-card h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.15);
+}
+
+.alert-card p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #f1f1f1;
+}
+
+.checking-text {
+  font-size: 0.95rem;
+  color: #f9a8d4;
+  animation: pulse 2s infinite;
+  font-family: monospace;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: scale(1) translateY(0px);
+  }
+  50% {
+    transform: scale(1.1) translateY(20px);
+  }
+}

@@ -1,0 +1,119 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const EmergencyCountdown = () => {
+  const [alert, setAlert] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchLatestAlert = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/emergency/latest/");
+        setAlert(response.data);
+      } catch (err) {
+        console.error("Error fetching alert:", err);
+        setError("Unable to fetch emergency data.");
+      }
+    };
+
+    fetchLatestAlert();
+  }, []);
+
+  const styles = {
+    container: {
+      fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+      background: "linear-gradient(135deg, #1e3c72, #2a5298)",
+      color: "#fff",
+      minHeight: "100vh",
+      padding: "40px 20px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    },
+    loading: {
+      fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+      color: "#fff",
+      background: "linear-gradient(135deg, #1e3c72, #2a5298)",
+      height: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "20px",
+    },
+    header: {
+      fontSize: "32px",
+      color: "#ff8fa3",
+      marginBottom: "20px",
+    },
+    alertBox: {
+      backgroundColor: "rgba(255, 255, 255, 0.15)",
+      padding: "20px",
+      borderLeft: "5px solid #ff4e50",
+      borderRadius: "10px",
+      marginBottom: "20px",
+      maxWidth: "600px",
+      width: "100%",
+      fontSize: "18px",
+      textAlign: "center",
+    },
+    mapFrame: {
+      width: "100%",
+      maxWidth: "700px",
+      height: "300px",
+      border: "none",
+      borderRadius: "12px",
+      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+      marginBottom: "20px",
+    },
+    mapLink: {
+      display: "inline-block",
+      padding: "10px 20px",
+      backgroundColor: "#00ffd5",
+      color: "#000",
+      textDecoration: "none",
+      borderRadius: "8px",
+      fontWeight: "bold",
+    },
+  };
+
+  if (error) {
+    return <div style={styles.loading}>{error}</div>;
+  }
+
+  if (!alert) {
+    return <div style={styles.loading}>Loading alert...</div>;
+  }
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>🚨 Emergency Detected</h1>
+
+      <div style={styles.alertBox}>
+        <strong>{alert.user_name}</strong> may have fallen. Coordinates detected:
+        <br />
+        Latitude: <strong>{alert.latitude}</strong>, Longitude:{" "}
+        <strong>{alert.longitude}</strong>
+      </div>
+
+      <iframe
+        src={`https://maps.google.com/maps?q=${alert.latitude},${alert.longitude}&z=15&output=embed`}
+        allowFullScreen
+        title="Google Map"
+        style={styles.mapFrame}
+      ></iframe>
+
+      <a
+        href={`https://maps.google.com/?q=${alert.latitude},${alert.longitude}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={styles.mapLink}
+        onMouseEnter={(e) => (e.target.style.backgroundColor = "#00c9a7")}
+        onMouseLeave={(e) => (e.target.style.backgroundColor = "#00ffd5")}
+      >
+        📍 Open in Google Maps
+      </a>
+    </div>
+  );
+};
+
+export default EmergencyCountdown;

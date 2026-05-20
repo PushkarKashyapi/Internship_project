@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pothole Warning</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to right, #141e30, #243b55);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #ffffff;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 20px;
+        padding: 30px 35px;
+        max-width: 420px;
+        width: 90%;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        font-size: 22px;
+        color: #ff5e57;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 16px;
+        margin: 10px 0;
+      }
+
+      strong {
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      audio {
+        margin-top: 20px;
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 25px 20px;
+        }
+
+        h1 {
+          font-size: 18px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+
+        .icon {
+          font-size: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="icon">⚠️</div>
+      <h1>Warning: {{ message }}</h1>
+      <p><strong>📍 Distance:</strong> {{ distance }} m</p>
+      <p><strong>📏 Depth:</strong> {{ depth }} cm</p>
+      <p><strong>⏱️ Time:</strong> {{ time }}</p>
+      {% load static %}
+      <audio autoplay>
+        <source src="{% static 'alarm.mp3' %}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </body>
+</html>

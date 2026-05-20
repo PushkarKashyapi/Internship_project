@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sensor Data Dashboard</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        width: 90%;
+        max-width: 900px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #ffffff;
+      }
+
+      .recommendation {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-left: 5px solid #00ffd5;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+
+      th,
+      td {
+        padding: 14px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 15px;
+      }
+
+      th {
+        background-color: rgba(0, 255, 213, 0.3);
+        color: #fff;
+        font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      tr:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      td {
+        color: #eaffff;
+        word-break: break-word;
+      }
+
+      .timestamp {
+        font-size: 13px;
+        color: #d4f1f9;
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>🌡️ IoT Sensor Dashboard</h1>
+      <h2>AI Recommendation</h2>
+      <div class="recommendation">{{ message }}</div>
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Temperature (°C)</th>
+          <th>Humidity (%)</th>
+          <th>Timestamp</th>
+        </tr>
+        {% for record in sensor_data %}
+        <tr>
+          <td>{{ record.name }}</td>
+          <td>{{ record.temperature }}</td>
+          <td>{{ record.humidity }}</td>
+          <td class="timestamp">{{ record.timestamp|date:"Y-m-d H:i:s" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">No data found</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </body>
+</html>
